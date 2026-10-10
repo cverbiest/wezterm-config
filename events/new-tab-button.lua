@@ -9,6 +9,10 @@ local attr = Cells.attr
 
 local M = {}
 
+-- true: connect with the system `ssh` client (OpenSSH) in a local tab
+-- false: connect through WezTerm's built-in SSH domain
+local use_openssh = true
+
 ---@type table<string, Cells.SegmentColors>
 -- stylua: ignore
 local colors = {
@@ -67,9 +71,16 @@ local function build_choices()
          id = tostring(idx),
          label = wezterm.format(cells:render({ 'icon_ssh', 'label_text' })),
       })
-      table.insert(choices_data, {
-         domain = { DomainName = v.name },
-      })
+      if use_openssh then
+         table.insert(choices_data, {
+            args = { 'ssh', (v.name:gsub('^SSH:', '')) },
+            domain = 'DefaultDomain',
+         })
+      else
+         table.insert(choices_data, {
+            domain = { DomainName = v.name },
+         })
+      end
       idx = idx + 1
    end
 

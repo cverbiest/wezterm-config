@@ -1,6 +1,9 @@
 local wezterm = require('wezterm')
 local platform = require('utils.platform')
 local backdrops = require('utils.backdrops')
+local ssh_menu = require('utils.ssh-menu')
+local renderer = require('utils.renderer')
+local theme = require('utils.theme')
 local act = wezterm.action
 
 local mod = {}
@@ -25,6 +28,9 @@ local keys = {
       mods = 'SHIFT',
       action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }),
    },
+   { key = 'F6', mods = 'SHIFT', action = ssh_menu.action() },
+   { key = 'F7', mods = 'SHIFT', action = renderer.action() },
+   { key = 'F8', mods = 'SHIFT', action = theme.action() },
    { key = 'F11', mods = 'NONE',    action = act.ToggleFullScreen },
    { key = 'F12', mods = 'NONE',    action = act.ShowDebugOverlay },
    { key = 'f',   mods = mod.SUPER, action = act.Search({ CaseInSensitiveString = '' }) },
