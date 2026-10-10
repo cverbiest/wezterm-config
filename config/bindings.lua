@@ -219,6 +219,17 @@ local keys = {
    { key = 'Enter', mods = mod.SUPER,     action = act.TogglePaneZoomState },
    -- CloseCurrentPane (Alt+W)
    { key = 'w',     mods = mod.SUPER,     action = act.CloseCurrentPane({ confirm = false }) },
+   -- Replace the pane: what the '+' button does, then Alt+W (Alt+Shift+W).
+   -- Spawning first matters -- 'CurrentPaneDomain' is resolved through the
+   -- pane passed to perform_action, so the old pane has to still be there.
+   {
+      key = 'w',
+      mods = 'ALT|SHIFT',
+      action = wezterm.action_callback(function(window, pane)
+         window:perform_action(act.SpawnTab('CurrentPaneDomain'), pane)
+         window:perform_action(act.CloseCurrentPane({ confirm = false }), pane)
+      end),
+   },
 
    -- panes: navigation
    -- ActivatePaneDirection up (Alt+Ctrl+K)
