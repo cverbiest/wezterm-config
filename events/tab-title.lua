@@ -125,6 +125,10 @@ end
 local function create_title(process_name, base_title, max_width, inset)
    local title
 
+   -- "user@host rest" (abl-tmux sets "user@host workspace"): the window title shows it all,
+   -- the tab only the rest
+   base_title = base_title:match('^%S*@%S* (.+)$') or base_title
+
    if process_name:len() > 0 then
       title = process_name .. ' ~ ' .. base_title
    else

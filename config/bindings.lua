@@ -2,6 +2,7 @@ local wezterm = require('wezterm')
 local platform = require('utils.platform')
 local backdrops = require('utils.backdrops')
 local ssh_menu = require('utils.ssh-menu')
+local clip_paste = require('utils.clip-paste')
 local renderer = require('utils.renderer')
 local theme = require('utils.theme')
 local act = wezterm.action
@@ -81,6 +82,8 @@ local keys = {
    { key = 'c',          mods = 'CTRL|SHIFT',  action = act.CopyTo('Clipboard') },
    -- PasteFrom clipboard (Ctrl+Shift+V)
    { key = 'v',          mods = 'CTRL|SHIFT',  action = act.PasteFrom('Clipboard') },
+   -- clipboard image as a file path (on SSH panes: uploaded to the host), e.g. for Claude Code
+   { key = 'v',          mods = mod.SUPER_REV, action = clip_paste.action() },
 
    -- tabs --
    -- tabs: spawn+close
