@@ -4,3 +4,6 @@
 /.luarocks
 .DS_Store
 .vscode
+/.renderer
+/.colorscheme
+.crosswayai/**
